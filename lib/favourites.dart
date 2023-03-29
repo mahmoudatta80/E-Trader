@@ -1,13 +1,18 @@
 import 'package:e_commerce_app/animated_route.dart';
+import 'package:e_commerce_app/cart_model.dart';
 import 'package:e_commerce_app/db_helper.dart';
 import 'package:e_commerce_app/details.dart';
+import 'package:e_commerce_app/dio_helper.dart';
 import 'package:e_commerce_app/favourites_model.dart';
+import 'package:e_commerce_app/softagi.dart';
 import 'package:flutter/material.dart';
 
 class FavouritesScreen extends StatefulWidget {
   Map<int, bool> favourites;
   Map<int, bool> cart;
-  FavouritesScreen({Key? key, required this.favourites,required this.cart}) : super(key: key);
+
+  FavouritesScreen({Key? key, required this.favourites, required this.cart})
+      : super(key: key);
 
   @override
   State<FavouritesScreen> createState() => _FavouritesScreenState();
@@ -15,11 +20,34 @@ class FavouritesScreen extends StatefulWidget {
 
 class _FavouritesScreenState extends State<FavouritesScreen> {
   DbHelper? helper;
+  Softagi? productModel;
+  bool cartEnd = false;
 
   @override
   void initState() {
+    setState(() {
+      cartEnd = false;
+    });
     super.initState();
     helper = DbHelper();
+
+    DioHelper.getProduct().then((value) {
+      productModel = Softagi.fromJson(value.data);
+    }).then((value) {
+      for (var e in productModel!.data!.productModel) {
+        widget.cart[e.id] = false;
+      }
+    }).then((value) {
+      helper!.readAllCart().then((value) {
+        for (var e in value) {
+          widget.cart[e['id']] = true;
+        }
+      }).then((value) {
+        setState(() {
+          cartEnd = true;
+        });
+      });
+    });
   }
 
   @override
@@ -28,10 +56,13 @@ class _FavouritesScreenState extends State<FavouritesScreen> {
       padding: const EdgeInsets.all(14.0),
       child: FutureBuilder(
         future: helper!.readAllFavourites(),
-        builder: (context,AsyncSnapshot? snapshot) {
-          if(!snapshot!.hasData) {
-            return const Center(child: CircularProgressIndicator(color: Colors.indigo,));
-          }else {
+        builder: (context, AsyncSnapshot? snapshot) {
+          if (!snapshot!.hasData || cartEnd == false) {
+            return const Center(
+                child: CircularProgressIndicator(
+              color: Colors.indigo,
+            ));
+          } else {
             return GridView.builder(
               itemCount: snapshot.data.length,
               physics: const BouncingScrollPhysics(),
@@ -41,7 +72,8 @@ class _FavouritesScreenState extends State<FavouritesScreen> {
                 mainAxisSpacing: 10,
               ),
               itemBuilder: (context, index) {
-                FavouritesModel favouritesModel = FavouritesModel.fromJson(snapshot.data[index]);
+                FavouritesModel favouritesModel =
+                    FavouritesModel.fromJson(snapshot.data[index]);
                 return InkWell(
                   hoverColor: Colors.white,
                   focusColor: Colors.white,
@@ -49,7 +81,8 @@ class _FavouritesScreenState extends State<FavouritesScreen> {
                   splashColor: Colors.white,
                   onTap: () {
                     Navigator.of(context).push(
-                      AnimatedRoute(page: DetailsScreen(
+                      AnimatedRoute(
+                          page: DetailsScreen(
                         pageId: 2,
                         favourites: widget.favourites,
                         cart: widget.cart,
@@ -90,33 +123,76 @@ class _FavouritesScreenState extends State<FavouritesScreen> {
                                   height: 130,
                                   width: double.infinity,
                                 ),
-                                InkWell(
-                                  onTap: () {},
-                                  child: Container(
-                                    padding: const EdgeInsets.all(
-                                      5,
-                                    ),
-                                    decoration: const BoxDecoration(
-                                      color: Colors.indigo,
-                                      borderRadius: BorderRadiusDirectional.only(
-                                        topStart: Radius.circular(
-                                          8,
+                                widget.cart[favouritesModel.id]!
+                                    ? Container(
+                                        padding: const EdgeInsets.all(
+                                          5,
                                         ),
-                                        bottomEnd: Radius.circular(
-                                          8,
+                                        decoration: BoxDecoration(
+                                          color: Colors.indigo.withOpacity(.2),
+                                          borderRadius:
+                                              const BorderRadiusDirectional
+                                                  .only(
+                                            topStart: Radius.circular(
+                                              8,
+                                            ),
+                                            bottomEnd: Radius.circular(
+                                              8,
+                                            ),
+                                          ),
+                                        ),
+                                        child: const Text(
+                                          'Added',
+                                          style: TextStyle(
+                                            color: Colors.indigo,
+                                            fontSize: 13,
+                                            fontWeight: FontWeight.w600,
+                                          ),
+                                        ),
+                                      )
+                                    : InkWell(
+                                        onTap: () {
+                                          CartModel cartModel = CartModel({
+                                            'image': favouritesModel.image,
+                                            'name': favouritesModel.name,
+                                            'id': favouritesModel.id,
+                                            'price': favouritesModel.price,
+                                            'description':
+                                                favouritesModel.description,
+                                            'count': 1,
+                                          });
+                                          helper!.insertToCart(cartModel);
+                                          setState(() {
+                                            widget.cart[favouritesModel.id] =
+                                                true;
+                                          });
+                                        },
+                                        child: Container(
+                                          padding: const EdgeInsets.all(
+                                            5,
+                                          ),
+                                          decoration: const BoxDecoration(
+                                            color: Colors.indigo,
+                                            borderRadius:
+                                                BorderRadiusDirectional.only(
+                                              topStart: Radius.circular(
+                                                8,
+                                              ),
+                                              bottomEnd: Radius.circular(
+                                                8,
+                                              ),
+                                            ),
+                                          ),
+                                          child: const Text(
+                                            'Add to Cart',
+                                            style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 13,
+                                              fontWeight: FontWeight.w600,
+                                            ),
+                                          ),
                                         ),
                                       ),
-                                    ),
-                                    child: const Text(
-                                      'Add to Cart',
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 13,
-                                        fontWeight: FontWeight.w600,
-                                      ),
-                                    ),
-                                  ),
-                                ),
                               ],
                             ),
                             const SizedBox(
@@ -148,7 +224,8 @@ class _FavouritesScreenState extends State<FavouritesScreen> {
                           child: InkWell(
                             onTap: () {
                               setState(() {
-                                helper!.deleteFromFavourites(favouritesModel.id);
+                                helper!
+                                    .deleteFromFavourites(favouritesModel.id);
                               });
                             },
                             child: const Icon(

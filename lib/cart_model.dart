@@ -11,7 +11,7 @@ class CartModel {
     name = obj['name'];
     image = obj['image'];
     description = obj['description'];
-    price = double.parse(obj['price']);
+    price = double.parse(obj['price'].toString());
     count = obj['count'];
   }
 
