@@ -1,4 +1,4 @@
-import 'package:e_commerce_app/data.dart';
+import 'package:e_commerce_app/models/api_model/data.dart';
 
 class Softagi {
   Data? data;

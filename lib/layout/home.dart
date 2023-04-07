@@ -1,9 +1,9 @@
-import 'package:e_commerce_app/cart.dart';
-import 'package:e_commerce_app/categories.dart';
-import 'package:e_commerce_app/dio_helper.dart';
-import 'package:e_commerce_app/favourites.dart';
-import 'package:e_commerce_app/products.dart';
-import 'package:e_commerce_app/softagi.dart';
+import 'package:e_commerce_app/modules/cart.dart';
+import 'package:e_commerce_app/modules/categories.dart';
+import 'package:e_commerce_app/modules/favourites.dart';
+import 'package:e_commerce_app/modules/products.dart';
+import 'package:e_commerce_app/network/remote/dio_helper.dart';
+import 'package:e_commerce_app/models/api_model/softagi.dart';
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 

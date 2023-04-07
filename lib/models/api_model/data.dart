@@ -1,6 +1,6 @@
-import 'package:e_commerce_app/category_model.dart';
-import 'package:e_commerce_app/product_model.dart';
-import 'package:e_commerce_app/single_category_model.dart';
+import 'package:e_commerce_app/models/api_model/category_model.dart';
+import 'package:e_commerce_app/models/api_model/product_model.dart';
+import 'package:e_commerce_app/models/api_model/single_category_model.dart';
 
 class Data {
   late final List<ProductModel> productModel;

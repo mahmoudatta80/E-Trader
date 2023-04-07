@@ -1,6 +1,6 @@
-import 'package:e_commerce_app/details.dart';
-import 'package:e_commerce_app/dio_helper.dart';
-import 'package:e_commerce_app/splash.dart';
+import 'package:e_commerce_app/modules/details.dart';
+import 'package:e_commerce_app/modules/splash.dart';
+import 'package:e_commerce_app/network/remote/dio_helper.dart';
 import 'package:flutter/material.dart';
 
 void main() {

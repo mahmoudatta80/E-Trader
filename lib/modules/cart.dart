@@ -1,8 +1,8 @@
-import 'package:e_commerce_app/animated_route.dart';
-import 'package:e_commerce_app/cart_model.dart';
-import 'package:e_commerce_app/db_helper.dart';
-import 'package:e_commerce_app/details.dart';
-import 'package:e_commerce_app/dio_helper.dart';
+import 'package:e_commerce_app/animation/animated_route.dart';
+import 'package:e_commerce_app/models/db_model/cart_model.dart';
+import 'package:e_commerce_app/network/local/db_helper.dart';
+import 'package:e_commerce_app/modules/details.dart';
+import 'package:e_commerce_app/network/remote/dio_helper.dart';
 import 'package:flutter/material.dart';
 
 class CartScreen extends StatefulWidget {

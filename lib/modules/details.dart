@@ -1,11 +1,11 @@
-import 'package:e_commerce_app/cart_model.dart';
-import 'package:e_commerce_app/db_helper.dart';
-import 'package:e_commerce_app/dio_helper.dart';
-import 'package:e_commerce_app/favourites_model.dart';
-import 'package:e_commerce_app/home.dart';
-import 'package:e_commerce_app/second_animated_route.dart';
-import 'package:e_commerce_app/single_category.dart';
-import 'package:e_commerce_app/softagi.dart';
+import 'package:e_commerce_app/models/db_model/cart_model.dart';
+import 'package:e_commerce_app/modules/single_category.dart';
+import 'package:e_commerce_app/network/local/db_helper.dart';
+import 'package:e_commerce_app/network/remote/dio_helper.dart';
+import 'package:e_commerce_app/models/db_model/favourites_model.dart';
+import 'package:e_commerce_app/layout/home.dart';
+import 'package:e_commerce_app/animation/second_animated_route.dart';
+import 'package:e_commerce_app/models/api_model/softagi.dart';
 import 'package:flutter/material.dart';
 
 class DetailsScreen extends StatefulWidget {

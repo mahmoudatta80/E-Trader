@@ -1,6 +1,6 @@
-import 'package:e_commerce_app/animated_route.dart';
-import 'package:e_commerce_app/home.dart';
-import 'package:e_commerce_app/register.dart';
+import 'package:e_commerce_app/animation/animated_route.dart';
+import 'package:e_commerce_app/layout/home.dart';
+import 'package:e_commerce_app/modules/register.dart';
 import 'package:flutter/material.dart';
 
 class LoginScreen extends StatefulWidget {

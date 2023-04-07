@@ -1,5 +1,5 @@
-import 'package:e_commerce_app/cart_model.dart';
-import 'package:e_commerce_app/favourites_model.dart';
+import 'package:e_commerce_app/models/db_model/cart_model.dart';
+import 'package:e_commerce_app/models/db_model/favourites_model.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
