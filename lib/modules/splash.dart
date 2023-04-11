@@ -20,7 +20,7 @@ class _SplashScreenState extends State<SplashScreen>
     _controller = AnimationController(
         vsync: this,
         duration: const Duration(
-          seconds: 3,
+          seconds: 2,
         ));
     _animation = Tween(begin: 0.0, end: 1.0).animate(_controller!)
       ..addStatusListener((status) {})
@@ -46,7 +46,7 @@ class _SplashScreenState extends State<SplashScreen>
           child: AnimatedOpacity(
             curve: Curves.fastLinearToSlowEaseIn,
             duration: const Duration(
-              seconds: 3,
+              seconds: 2,
             ),
             opacity: _animation!.value,
             child: Column(
