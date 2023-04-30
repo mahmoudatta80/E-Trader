@@ -4,6 +4,7 @@ import 'package:e_commerce_app/network/remote/dio_helper.dart';
 import 'package:flutter/material.dart';
 
 void main() {
+  //	E-Trader
   DioHelper.init();
   runApp(const MyApp());
 }
@@ -18,7 +19,7 @@ class MyApp extends StatelessWidget {
         fontFamily: 'Bold',
       ),
       debugShowCheckedModeBanner: false,
-      home: const SplashScreen(),
+      home: const Splash(),
     );
   }
 }

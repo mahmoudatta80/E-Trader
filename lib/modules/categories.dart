@@ -71,6 +71,22 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
                       image: NetworkImage(
                         widget.categoryModel.data!.categoryModel[index].image,
                       ),
+                      errorBuilder: (context, error, stackTrace) {
+                        return Image.network(
+                          'https://www.globalsign.com/application/files/9516/0389/3750/What_Is_an_SSL_Common_Name_Mismatch_Error_-_Blog_Image.jpg',
+                          fit: BoxFit.cover,
+                        );
+                      },
+                      loadingBuilder: (context, child, loadingProgress) {
+                        if(loadingProgress == null) {
+                          return child;
+                        }
+                        return const Center(
+                          child: CircularProgressIndicator(
+                            color: Colors.indigo,
+                          ),
+                        );
+                      },
                     ),
                   ),
                   const SizedBox(
